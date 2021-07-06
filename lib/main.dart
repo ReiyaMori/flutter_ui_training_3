@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_training_3/main_model.dart';
 
@@ -179,7 +180,7 @@ class IndexButton extends StatelessWidget{
 
 /*ここからインディケーター*/
 /*カスタムペイントで実装*/
-class _Indicator extends StatelessWidget{
+class _Indicator extends HookWidget{
   final percentage = 0.7;
   final size = 164.0;
 
@@ -187,11 +188,19 @@ class _Indicator extends StatelessWidget{
   Widget build(BuildContext context) {
     /*パーセンテージを整数化*/
     int percentageShow = (percentage*100).round();
+    /*アニメーション用*/
+    final animationController = useAnimationController(
+      duration: const Duration(milliseconds: 500),
+    );
+    final tweenAnimation =
+    Tween(begin: 0.0, end: 1.0).animate(animationController);
+    /*アニメ*/
+    animationController.forward();
     // TODO: implement build
     return CustomPaint(
       painter: _IndicatorPainter(
-        percentage: percentage,
-        textCircleRadius: size*0.5
+          percentage: percentage,
+          textCircleRadius: size*0.5
       ),
       /*インジケーター部分*/
       child: Container(

@@ -10,4 +10,6 @@ class MainModel extends ChangeNotifier{
     currentPageTitle = text;
     notifyListeners();
   }
+
+
 }
